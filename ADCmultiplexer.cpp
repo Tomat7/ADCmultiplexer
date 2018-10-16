@@ -23,7 +23,6 @@ ISR(ADC_vect) {
 
 ADCmultiplexer::ADCmultiplexer()
 {
-	//pin_ = analogPin;
 }
 
 void ADCmultiplexer::init(byte numSensor, int *aPin, int *Vars) //__attribute__((always_inline))
@@ -31,18 +30,6 @@ void ADCmultiplexer::init(byte numSensor, int *aPin, int *Vars) //__attribute__(
 	pPin_ = aPin;
 	pVar_ = Vars;
 	nSensor_ = numSensor;
-/*	
-	int pin1 = *pPin_ - 14;
-	int pin2 = *(pPin_+1) - 14;
-	Serial.println(pin1);
-	Serial.println(pin2);
-		
-	ppVal_ = *pVar_;
-	*ppVal_ = 777;
-
-	ppVal_ = *(pVar_+1);
-	*ppVal_ = 999;
-*/		
 	// настойка АЦП
 	//ADMUX = (0 << REFS1) | (1 << REFS0) | (0 << MUX2) | (0 << MUX1) | (1 << MUX0); // начинаем 
 	ADMUX = _BV(REFS0) | (*pPin_ - 14);
@@ -55,14 +42,6 @@ void ADCmultiplexer::init(byte numSensor, int *aPin, int *Vars) //__attribute__(
 
 void ADCmultiplexer::check()
 {	
-	/*
-	ppVal_ = *pVar_;
-	int pp = *ppVal_;
-	pp++;
-	*ppVal_ = pp;
-	ppVal_ = *(pVar_+1);
-	*ppVal_ = millis();
-	*/
 	
 	if (_cntr == 1024)
 	{	
@@ -73,8 +52,6 @@ void ADCmultiplexer::check()
 		if (i == nSensor_) i = 0;
 		ADMUX = _BV(REFS0) | (*(pPin_+i) - 14);
 		
-		//Press_mmHg = (Press_raw * 4 - 160) / 50;
-		// Press_kPa =  (Press_raw/(float)1023-0.04) / 0.09;  // раскоментировать если нужны килоПаскали
 		_Summ = 0;
 		//cli();			// так в умных интернетах пишут, возможно это лишнее - ** и без этого работает **
 		_cntr = 1050;		// сбросим счетчик в "кодовое" значение 
