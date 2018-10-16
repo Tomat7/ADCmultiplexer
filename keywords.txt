@@ -5,10 +5,9 @@
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
-MPX5010x    				KEYWORD1
+MPX5010x    			KEYWORD1
 OneWire					KEYWORD1
-AlarmHandler			KEYWORD1
-DeviceAddress			KEYWORD1
+ADCmultiplexer			KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
