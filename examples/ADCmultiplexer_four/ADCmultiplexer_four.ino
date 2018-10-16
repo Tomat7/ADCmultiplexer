@@ -6,7 +6,7 @@ Three analog ports reading example
 ADCmultiplexer AnalogMulti;
 
 int Temperature, Pressure, Voltage, WindSpeed;
-int Pins[] = {A0, A1, A2, A3};
+int Pins[] = { A0, 			 A1, 		A2, 	  A3		 };
 int Vals[] = { &Temperature, &Pressure, &Voltage, &WindSpeed };
 const int numberOfSensors = sizeof(Pins) / sizeof(int);
 
