@@ -35,6 +35,7 @@ void ADCmultiplexer::init(byte numSensor, int *aPin, int *Vars) //__attribute__(
 	ADMUX = _BV(REFS0) | (*pPin_ - 14);
 	ADCSRA = B11101111; //Включение АЦП
 	ACSR = (1 << ACD);
+
 	Serial.print(F(LIBVERSION));
 	Serial.println(nSensor_);
 	_Summ=0;		// ??
@@ -59,7 +60,6 @@ void ADCmultiplexer::check()
 	}
 	return;
 }
-
 
 void ADCmultiplexer::GetADC_int() //__attribute__((always_inline))
 {

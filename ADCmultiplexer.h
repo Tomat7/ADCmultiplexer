@@ -14,11 +14,10 @@ public:
 	ADCmultiplexer();
 	
 	void init(byte numSensor, int *aPin, int *Vars);
+	void init(byte numSensor, int *aPin);
 	void check();
-	int Value;
-
-	//=== Прерываниe
-	static void GetADC_int() __attribute__((always_inline));
+		
+	static void GetADC_int() __attribute__((always_inline));  //=== Прерываниe
 	
 protected:
 	volatile static unsigned int _cntr;
