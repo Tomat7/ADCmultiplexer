@@ -6,5 +6,5 @@ Each cycle doing 1024 measurement for each pin/port - it takes ~100 ms per port.
 So, it is necessary to use periodically `check()` method to update value and switching to next pin/port.  
 See `/example` for details.
 
-See also https://github.com/Tomat7/ADCmulti - works similar but easy to use and returns *average* value. (I thinks so :-)
+See also https://github.com/Tomat7/ADCmulti - works similar but returns *average* value and easy to use. (I thinks so :-)
 
