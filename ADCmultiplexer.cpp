@@ -43,7 +43,6 @@ void ADCmultiplexer::init(byte numSensor, int *aPin, int *Vars) //__attribute__(
 
 void ADCmultiplexer::check()
 {	
-	
 	if (_cntr == 1024)
 	{	
 		_Summ >>= 10;
@@ -52,7 +51,7 @@ void ADCmultiplexer::check()
 		i++;
 		if (i == nSensor_) i = 0;
 		ADMUX = _BV(REFS0) | (*(pPin_+i) - 14);
-		
+
 		_Summ = 0;
 		//cli();			// так в умных интернетах пишут, возможно это лишнее - ** и без этого работает **
 		_cntr = 1050;		// сбросим счетчик в "кодовое" значение 
