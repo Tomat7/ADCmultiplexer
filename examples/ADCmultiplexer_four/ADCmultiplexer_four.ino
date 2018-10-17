@@ -5,9 +5,9 @@ Three analog ports reading example
 #include "ADCmultiplexer.h"
 ADCmultiplexer AnalogMulti;
 
-int Temperature, Pressure, Voltage, WindSpeed;
-int Pins[] = { A0, 			 A1, 		A2, 	  A3		 };
-int Vals[] = { &Temperature, &Pressure, &Voltage, &WindSpeed };
+int Temperature, Pressure, Voltage, WindSpeed;					// declare variables which will contain data.
+int Pins[] = { A0, 			 A1, 		A2, 	  A3		 };	// array of PINs according to sequence of variables.
+int Vals[] = { &Temperature, &Pressure, &Voltage, &WindSpeed };	// array of varialbles. ADCmultiplexer will update it on check() method.
 const int numberOfSensors = sizeof(Pins) / sizeof(int);
 
 long int msMillis;
