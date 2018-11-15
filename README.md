@@ -1,4 +1,4 @@
-# AnalogMultiRead
+# ADCmultiplexer
 
 Continuously reading ADC value from *SEVERAL* pins using **Free-Running** mode and interrupt - ie working in background.  
 The library switch between analog pins in free-running mode and returns ~~average~~ [RMS](https://en.wikipedia.org/wiki/Root_mean_square "Google's RMS definition") value of last measurement cycle.  
