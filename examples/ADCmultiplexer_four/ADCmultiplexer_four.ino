@@ -17,6 +17,8 @@ void setup()
 	Serial.begin(115200);
 	delay(300);
 	AnalogMulti.init(numberOfSensors, Pins, Vals);
+	AnalogMulti.showinfo();
+	//AnalogMulti.setshift(512);
 	msMillis = millis();
 	delay(200);
 }
