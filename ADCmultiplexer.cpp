@@ -39,9 +39,6 @@ void ADCmultiplexer::init(byte qtySensor, int *aPin, int *Vars) //__attribute__(
 	_Summ=0;		// ??
 	_shift=0;
 	i=0;
-	//	Serial.print(F(LIBVERSION));
-	//	Serial.print(nSensor_);
-	//	Serial.println("pins");
 }
 
 void ADCmultiplexer::check()
