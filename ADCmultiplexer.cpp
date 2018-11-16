@@ -15,6 +15,7 @@
 
 volatile unsigned int ADCmultiplexer::_cntr;
 volatile unsigned long ADCmultiplexer::_Summ;
+volatile int ADCmultiplexer::_shift;
 
 //================= Обработка прерывания АЦП для расчета среднеквадратичного тока
 ISR(ADC_vect) {
@@ -25,20 +26,19 @@ ADCmultiplexer::ADCmultiplexer()
 {
 }
 
-void ADCmultiplexer::init(byte numSensor, int *aPin, int *Vars) //__attribute__((always_inline))
+void ADCmultiplexer::init(byte qtySensor, int *aPin, int *Vars) //__attribute__((always_inline))
 {  
 	pPin_ = aPin;
 	pVar_ = Vars;
-	nSensor_ = numSensor;
+	_qty = qtySensor;
 	// настойка АЦП
 	//ADMUX = (0 << REFS1) | (1 << REFS0) | (0 << MUX2) | (0 << MUX1) | (1 << MUX0); // начинаем 
 	ADMUX = _BV(REFS0) | (*pPin_ - 14);
 	ADCSRA = B11101111; //Включение АЦП
 	ACSR = (1 << ACD);
-
-	Serial.print(F(LIBVERSION));
-	Serial.println(nSensor_);
 	_Summ=0;		// ??
+	_shift=0;
+	i=0;
 }
 
 void ADCmultiplexer::check()
@@ -49,7 +49,7 @@ void ADCmultiplexer::check()
 		ppVal_ = *(pVar_+i);
 		*ppVal_ = int(sqrt(_Summ));
 		i++;
-		if (i == nSensor_) i = 0;
+		if (i == _qty) i = 0;
 		ADMUX = _BV(REFS0) | (*(pPin_+i) - 14);
 
 		_Summ = 0;
@@ -67,13 +67,32 @@ void ADCmultiplexer::GetADC_int() //__attribute__((always_inline))
 	byte An = ADCH;
 	if (_cntr < 1024)
 	{
-		adcData = ((An << 8) + An_pin);
+		adcData = ((An << 8) + An_pin) - _shift;
 		adcData *= adcData;
 		_Summ += adcData;                   
 		_cntr++;
 	}
 	if (_cntr == 1050) _cntr = 0;
 	return;
+}
+
+
+void ADCmultiplexer::showinfo()
+{
+	Serial.print(F(LIBVERSION));
+	for (int y=0; y<_qty; y++)
+	{
+		Serial.print("A");
+		Serial.print(*(pPin_+y));
+		if (y<(_qty-1)) Serial.print(", ");
+		else Serial.print(".");
+	}
+
+}
+
+void ADCmultiplexer::setshift(int Shift)
+{
+	_shift = Shift;
 }
 
 /*
